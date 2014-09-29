@@ -72,7 +72,11 @@ if ON_HEROKU:
 	DATABASES = {
 	    'default': {
 	        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-	        'NAME': 'postgresql',
+	        'NAME': 'dddsam8hd2005h',
+	        'USER': 'xjtvgzeeccqmzs',
+	        'PASSWORD': 'X84fwIkffPm8aG7VV4OeR8R6bg',
+            'HOST': 'ec2-23-23-81-171.compute-1.amazonaws.com',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+            'PORT': '5432',   
 	    }
 	}
 else:
