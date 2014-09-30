@@ -81,8 +81,7 @@ WSGI_APPLICATION = 'nirla.wsgi.application'
 
 
 import dj_database_url
-#DATABASES = {'default': dj_database_url.config(default='postgres://xjtvgzeeccqmzs:X84fwIkffPm8aG7VV4OeR8R6bg@localhost/dddsam8hd2005h')}
-
+#type heroku config to get the link that default should be
 DATABASES = {'default': dj_database_url.config(default='postgres://xjtvgzeeccqmzs:X84fwIkffPm8aG7VV4OeR8R6bg@ec2-23-23-81-171.compute-1.amazonaws.com:5432/dddsam8hd2005h')}
 
 
