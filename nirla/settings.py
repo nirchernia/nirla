@@ -10,12 +10,11 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-import dj_database_url
 
-ON_HEROKU = os.environ.get('ON_HEROKU')
-HEROKU_SERVER = os.environ.get('HEROKU_SERVER')
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -29,7 +28,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['nirla.herokuapp.com']
 
 
 # Application definition
@@ -67,35 +66,30 @@ WSGI_APPLICATION = 'nirla.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
-if ON_HEROKU:
-	
-	DATABASES = {
-	    'default': {
-	        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-	        'NAME': 'dddsam8hd2005h',
-	        'USER': 'xjtvgzeeccqmzs',
-	        'PASSWORD': 'X84fwIkffPm8aG7VV4OeR8R6bg',
-            'HOST': 'ec2-23-23-81-171.compute-1.amazonaws.com',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-            'PORT': '5432',   
-	    }
-	}
-else:
-	DATABASES = {
-	    'default': {
-	        'ENGINE': 'django.db.backends.sqlite3',
-	        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-	        'USER': '',
-            'PASSWORD': '',
-            'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-            'PORT': '',  
-	    }
-	}
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": "dddsam8hd2005h",
+#         "USER": "xjtvgzeeccqmzs",
+#         "PASSWORD": "X84fwIkffPm8aG7VV4OeR8R6bg",
+#         "HOST": "ec2-23-23-81-171.compute-1.amazonaws.com",
+#         "PORT": "5432",
+#     }
+# }
 
 
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+import dj_database_url
+#DATABASES = {'default': dj_database_url.config(default='postgres://xjtvgzeeccqmzs:X84fwIkffPm8aG7VV4OeR8R6bg@localhost/dddsam8hd2005h')}
 
-ALLOWED_HOSTS = ['*']
+DATABASES = {'default': dj_database_url.config(default='postgres://xjtvgzeeccqmzs:X84fwIkffPm8aG7VV4OeR8R6bg@ec2-23-23-81-171.compute-1.amazonaws.com:5432/dddsam8hd2005h')}
+
+
+
+
+
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -147,3 +141,4 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
 )
+

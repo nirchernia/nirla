@@ -15,3 +15,4 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "nirla.settings")
 
 
 application = Cling(get_wsgi_application())
+
