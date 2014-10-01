@@ -6,8 +6,8 @@ from nirla.apps.suggest.views import suggest, thankyou
 from django.core.urlresolvers import reverse
 #used for serving static locally
 from django.conf import settings
-
-
+#used for serving favicon
+from django.views.generic import RedirectView
 
 
 urlpatterns = patterns('',
@@ -23,5 +23,8 @@ urlpatterns = patterns('',
 	
 	#serving static on local
 	url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+	
+	#serving favicon
+	(r'^favicon\.ico$', RedirectView.as_view(url='/static/favicon.ico')),
 	
 )
