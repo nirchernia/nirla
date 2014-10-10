@@ -2,7 +2,7 @@ from django.views.generic import View
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login
-
+from django.contrib.auth.forms import UserCreationForm
 
 class Login(View):
 	template_name = "auth/login.html"
@@ -37,9 +37,12 @@ class Logout(View):
 	
 	
 class Signup(View):
+	template_name = "auth/signup.html"
+	form = UserCreationForm()
 	
 	def get(self, request, *args, **kwargs):
-		pass
+		if not request.user.is_authenticated:
+			return render(request, self.template_name, {'form': self.form})
 	
 	
 	def post(self, request, *args, **kwargs):
