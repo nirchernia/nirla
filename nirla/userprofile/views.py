@@ -46,7 +46,21 @@ class Signup(View):
 	
 	
 	def post(self, request, *args, **kwargs):
-		pass
+		form = UserCreationForm(request.POST)
+		if form.is_valid(): #correct this
+			new_user = form.save()
+			#now create a UserProfile instance and save it
+			new_UserProfile = UserProfile(user=new_user)
+			new_UserProfile.save()
+			#now log the user in
+			new_user = authenticate(username=request.POST['username'], password=request.POST['password1'])
+			login(request, new_user)
+			return redirect(reverse('home_page'))
+		else:
+			#failuire for some reason
+			form = UserCreationForm()
+			return render(request, self.template_name, {'form':form})
+		
 		
 		
 

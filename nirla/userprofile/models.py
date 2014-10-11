@@ -6,8 +6,8 @@ from nirla.apps.blog.models import Article
 
 class UserProfile(models.Model):
 	user = models.OneToOneField(User)
-	followers = models.ManyToManyField('self', symmetrical=False, blank= True, null=True) #double check null and blank
-	following = models.ManyToManyField('self', symmetrical=False, blank=True, null=True)
+	follower = models.ManyToManyField('self', blank= True, null=True) #symmetrical=False  
+	following = models.ManyToManyField('self', blank=True, null=True) #symmetrical=False
 	likes = models.ManyToManyField(Article, blank=True, null=True)
 	
 	def __unicode__(self):
