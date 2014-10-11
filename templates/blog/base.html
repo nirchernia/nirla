@@ -50,8 +50,21 @@
                     <li>
                         <a class="page-scroll" href="{% url 'suggest_page' %}">Suggest Something</a>
                     </li>
+                    	{% if user.is_authenticated %}
+			   		<li>
+			   			<div>Welcome, {{ user.username }} &#149; <a class="account_logout">Logout</a></div>
+			   		</li>
+			   		
+			   			{% else %}
+			   		<li>
+			   			<div>Hi New User &#149; <a class="account_logout">Logout</a></div>
+			   		</li>
+			   			{% endif %}
+
                     
                 </ul>
+
+              <div>  
             </div>
             <!-- /.navbar-collapse -->
         </div>

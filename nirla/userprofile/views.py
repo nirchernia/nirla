@@ -1,8 +1,9 @@
 from django.views.generic import View
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib import auth
 
 class Login(View):
 	template_name = "auth/login.html"
@@ -31,7 +32,7 @@ class Login(View):
 class Logout(View):
 	
 	def get(self, request, *args, **kwargs):
-		logout(request, user)
+		auth.logout(request)
 		return redirect(reverse('home_page'))
 	
 	
