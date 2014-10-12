@@ -60,12 +60,12 @@
                 <ul style="align:right;margin-left:900px;margin-top:13px;list-style-type: none;">
                 	 	{% if user.is_authenticated %}
 			   		<li>
-			   			<div>Welcome, {{ user.username }} &#149; <a class="account_logout">Logout</a></div>
+			   			<div>{{ user.username }} &#149; <a href="{% url 'logout_page' %}">logout</a></div>
 			   		</li>
 			   		
 			   			{% else %}
 			   		<li>
-			   			<div>Hi New User &#149; <a class="account_logout">Logout</a></div>
+			   			<div>Hi New User &#149; <a>Login?</a></div>
 			   		</li>
 			   			{% endif %}
                 
