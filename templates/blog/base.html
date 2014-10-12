@@ -57,7 +57,7 @@
                     
                 </ul>
                 <!--nir's custom login -->
-                <ul>
+                <ul style="list-style-type: none;">
                 	 	{% if user.is_authenticated %}
 			   		<li>
 			   			<div style="align:right;margin-left:900px;margin-top:13px;list-style-type: none;">{{ user.username }} &#149; <a href="{% url 'logout_page' %}">Logout</a></div>
