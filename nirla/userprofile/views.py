@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import auth
+from nirla.userprofile.models import UserProfile
 
 class Login(View):
 	template_name = "auth/login.html"
@@ -59,11 +60,16 @@ class Signup(View):
 			login(request, new_user)
 			return redirect(reverse('home_page'))
 		else:
-			#failuire for some reason
+			#failure for some reason
 			form = UserCreationForm()
 			return render(request, self.template_name, {'form':form})
 		
-		
+
+class RequestInvite(View):
+	template_name = "auth/request_invite.html"
+
+	def get(self, request, *args, **kwargs):
+		return render(request, self.template_name)
 		
 
 	      

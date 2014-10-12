@@ -4,7 +4,7 @@ admin.autodiscover()
 from nirla.apps.blog.views import home, about
 from nirla.apps.suggest.views import suggest, thankyou
 from django.core.urlresolvers import reverse
-from nirla.userprofile.views import Login, Logout, Signup
+from nirla.userprofile.views import Login, Logout, Signup, RequestInvite
 #used for serving static locally
 from django.conf import settings
 
@@ -24,7 +24,8 @@ urlpatterns = patterns('',
 	#userprofile
 	url(r'^login/$', Login.as_view(), name='login_page'),
 	url(r'^logout/$', Logout.as_view(), name='logout_page'),
-	url(r'signup/$', Signup.as_view(), name='signup_page'),
+	url(r'^signup/$', Signup.as_view(), name='signup_page'),
+	url(r'^request-invite/$', RequestInvite.as_view(), name="request_invite_page"),
 	
 	#serving static on local
 	url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),

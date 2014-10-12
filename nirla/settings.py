@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'dj_database_url',
     'south',
     'nirla.userprofile',
+    'django_extensions',
 )
 
 
