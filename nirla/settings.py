@@ -43,6 +43,8 @@ INSTALLED_APPS = (
     'nirla.apps.blog',
     'nirla.apps.suggest',
     'dj_database_url',
+    'south',
+    'nirla.userprofile',
 )
 
 

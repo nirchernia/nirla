@@ -35,6 +35,10 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand page-scroll" href="{% url 'home_page' %}"><img src="{% static "img/logo.png" %}" height="24" width="32"> NIR.AUDIO</a>
+                
+                
+                   
+                
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -52,6 +56,21 @@
                     </li>
                     
                 </ul>
+                <!--nir's custom login -->
+                <ul style="align:right;margin-left:800px;margin-top:13px;list-style-type: none;">
+                	 	{% if user.is_authenticated %}
+			   		<li>
+			   			<div>{{ user.username }} &#149; <a href="{% url 'logout_page' %}">logout</a></div>
+			   		</li>
+			   		
+			   			{% else %}
+			   		<li>
+			   			<div>Welcome Anonymous &#149; <a href="{% url 'login_page'%}">Login</a> &#149; <a href="{% url 'signup_page' %}">Request Invite</a></div>
+			   		</li>
+			   			{% endif %}
+                
+			   	</ul>
+              <div>  
             </div>
             <!-- /.navbar-collapse -->
         </div>
