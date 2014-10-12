@@ -57,7 +57,7 @@
                     
                 </ul>
                 <!--nir's custom login -->
-                <ul style="align:right;margin-left:900px;margin-top:13px;list-style-type: none;">
+                <ul style="align:right;margin-left:800px;margin-top:13px;list-style-type: none;">
                 	 	{% if user.is_authenticated %}
 			   		<li>
 			   			<div>{{ user.username }} &#149; <a href="{% url 'logout_page' %}">logout</a></div>
@@ -65,7 +65,7 @@
 			   		
 			   			{% else %}
 			   		<li>
-			   			<div>Hi New User &#149; <a>Login?</a></div>
+			   			<div>Welcome Anonymous &#149; <a href="{% url 'login_page'%}">Login</a> &#149; <a href="{% url 'signup_page' %}">Request Invite</a></div>
 			   		</li>
 			   			{% endif %}
                 

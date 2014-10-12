@@ -42,9 +42,10 @@ class Signup(View):
 	form = UserCreationForm()
 	
 	def get(self, request, *args, **kwargs):
-		if not request.user.is_authenticated:
+		if not request.user.is_authenticated():
 			return render(request, self.template_name, {'form': self.form})
-	
+		else:
+			return redirect(reverse('home_page'))
 	
 	def post(self, request, *args, **kwargs):
 		form = UserCreationForm(request.POST)
