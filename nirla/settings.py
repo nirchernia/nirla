@@ -46,6 +46,8 @@ INSTALLED_APPS = (
     'south',
     'nirla.userprofile',
     'django_extensions',
+    #'django.contrib.sites',
+    #'inviter',
 )
 
 

@@ -27,6 +27,9 @@ urlpatterns = patterns('',
 	url(r'^signup/$', Signup.as_view(), name='signup_page'),
 	url(r'^request-invite/$', RequestInvite.as_view(), name="request_invite_page"),
 	
+	#inviter app
+	#url('^invites/', include('inviter.urls', namespace = 'inviter')),
+	
 	#serving static on local
 	url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
 	
