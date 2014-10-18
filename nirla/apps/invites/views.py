@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.base import View
-#need to import InviteForm
+from nirla.apps.invites.forms import InviteForm
+from nirla.apps.invites.models import Invite
 
 class invite_user(View):
 	
@@ -29,9 +30,28 @@ def confirm_invite(req, token):
 	user = invite.user
 	if user.is_active == True:
 		return redirect(reverse('home_page'))
+	user.is_actiave == True
+	user.save()
+	auth_user = authenticate(username=user.username, password='**')
+	if auth_user is None:
+		return redirect(reverse('home_page'))
 	login(req, auth_user)
 	return redirect(reverse('home_page'))
+
 	
-# need login user view	
-	
-		
+
+def login_user(req):
+  if req.user.is_authenticated():
+    return redirect(reverse('home_page'))
+  if 'token' in req.COOKIES:
+    try:
+      invite = Invite.objects.get(cookie=req.COOKIES['token'])
+    except Invite.DoesNotExist:
+	  resp = redirect(reverse('home_page'))
+	  resp.delete_cookie('token')
+	  return resp
+    user = authenticate(username=invite.user.username, password='**')
+    if user is None:
+      return redirect(reverse('home_page'))
+    login(req, user)
+  return redirect(reverse('home_page'))		
