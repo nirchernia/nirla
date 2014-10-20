@@ -15,9 +15,17 @@
                     <h3></h3>
                     
                     	<div style="width:700px;margin: 0 auto;">
-							<p>We are currently not accepting requests. This will be a future installment.
+							<p>An Email will be sent to the invitee with information with how to become a User.
 									
 							</p> 
+							
+							
+							
+							<form action="{% url 'invite_user_page' %}" method="post">{% csrf_token %}
+								{{ form.as_p }}
+								<input type="submit" value="Submit Request">
+							</form>
+
 
                     	</div>
                     <hr width="800" size="500" color="000">

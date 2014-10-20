@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'django_extensions',
     #'django.contrib.sites',
     #'inviter',
+    'nirla.apps.invites',
 )
 
 
