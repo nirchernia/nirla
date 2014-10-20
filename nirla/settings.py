@@ -62,7 +62,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-	#install the middleware for invites    
+	#install the middleware for invites
+	#'nirla.apps.invites.middleware.InviteMiddleware',
 )
 
 ROOT_URLCONF = 'nirla.urls'

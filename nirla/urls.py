@@ -29,7 +29,9 @@ urlpatterns = patterns('',
 	
 	#invite app
 	url(r'^request-invite/$', invite_user.as_view(), name="invite_user_page"),
-	url(r'^confirm-invite/$', confirm_invite, name="confirm_invite_page"), #not sure if correct
+	url(r'^confirm-invite/$', confirm_invite, name="confirm_invite_page"), #not sure if correct/needed
+	url(r'^confirm-invite/(?P<args>\s+)$', confirm_invite, name="confirm_invite_page"), #need the correct regex
+	
 	
 	
 	#serving static on local
