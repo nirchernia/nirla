@@ -5,7 +5,7 @@ from nirla.apps.blog.views import home, about
 from nirla.apps.suggest.views import suggest, thankyou
 from django.core.urlresolvers import reverse
 from nirla.userprofile.views import Login, Logout, Signup
-from nirla.apps.invites.views import invite_user
+from nirla.apps.invites.views import invite_user, confirm_invite
 #used for serving static locally
 from django.conf import settings
 
@@ -26,10 +26,11 @@ urlpatterns = patterns('',
 	url(r'^login/$', Login.as_view(), name='login_page'),
 	url(r'^logout/$', Logout.as_view(), name='logout_page'),
 	url(r'^signup/$', Signup.as_view(), name='signup_page'),
-	url(r'^request-invite/$', invite_user.as_view(), name="invite_user_page"),
 	
-	#inviter app
-	#url('^invites/', include('inviter.urls', namespace = 'inviter')),
+	#invite app
+	url(r'^request-invite/$', invite_user.as_view(), name="invite_user_page"),
+	url(r'^confirm-invite/$', confirm_invite, name="confirm_invite_page"), #not sure if correct
+	
 	
 	#serving static on local
 	url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),

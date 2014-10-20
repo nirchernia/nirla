@@ -11,5 +11,5 @@ class Invite(models.Model):
 		return u"%s's invite" % (self.user)
 		
 	def get_absolute_url(self):
-		return (reverse('invite', args=[self.token]))
+		return (reverse('confirm_invite_page', args=[self.token]))
 	
