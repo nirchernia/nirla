@@ -23,9 +23,9 @@ class invite_user(View):
 			user.last_name = form.cleaned_data['last_name']
 			user.is_active = False
 			user.save()
-			#now make invite
+			#now make Invite
 			invite = Invite.objects.create(user=user, cookie='ck-test', token='tk-test')
-			send_mail('Subject', 'Link: http://nir.audio%s' % invite.get_absolute_url(), [user.email])
+			send_mail(subject='Invite Link', message='Link: http://nir.audio%s'% invite.get_absolute_url(),from_email='nirchernia@gmail.com', recipient_list=[user.email])
 			return redirect(reverse('home_page'))
 		else:
 			form = InviteForm()
