@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.base import View
 from nirla.apps.invites.forms import InviteForm
 from nirla.apps.invites.models import Invite
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
+from nirla.apps.invites.utils import send_custom_email
 
 class invite_user(View):
 	
@@ -25,7 +26,9 @@ class invite_user(View):
 			user.save()
 			#now make Invite
 			invite = Invite.objects.create(user=user, cookie='ck-test', token='tk-test')
-			send_mail(subject='Invite Link', message='Link: http://nir.audio%s'% invite.get_absolute_url(),from_email='nirchernia@gmail.com', recipient_list=[user.email])
+			#now set up send_custom_email
+			message ='Link: http://nir.audio%s' % invite.get_absolute_url()
+			send_custom_email(recipient=user.email, custom_message=message)
 			return redirect(reverse('home_page'))
 		else:
 			form = InviteForm()
