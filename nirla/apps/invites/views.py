@@ -3,7 +3,7 @@ from django.views.generic.base import View
 from nirla.apps.invites.forms import InviteForm
 from nirla.apps.invites.models import Invite
 from django.contrib.auth.models import User
-from django.core.mail import send_mail
+#from django.core.mail import send_mail
 from nirla.apps.invites.utils import send_custom_email
 
 class invite_user(View):

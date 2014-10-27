@@ -5,7 +5,7 @@ def send_custom_email(recipient, custom_message):
  
 	to = recipient
 	gmail_user = 'nirchernia@gmail.com'
-	gmail_pwd = 'floratash'
+	gmail_pwd = ''
 	smtpserver = smtplib.SMTP("smtp.gmail.com",587)
 	smtpserver.ehlo()
 	smtpserver.starttls()
