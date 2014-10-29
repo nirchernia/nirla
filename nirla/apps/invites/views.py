@@ -5,6 +5,8 @@ from nirla.apps.invites.models import Invite
 from django.contrib.auth.models import User
 #from django.core.mail import send_mail
 from nirla.apps.invites.utils import send_custom_email
+from django.core.urlresolvers import reverse
+from django.contrib.auth import authenticate, login
 
 class invite_user(View):
 	
@@ -27,7 +29,7 @@ class invite_user(View):
 			#now make Invite
 			invite = Invite.objects.create(user=user, cookie='ck-test', token='tk-test')
 			#now set up send_custom_email
-			message ='Link: http://nir.audio%s' % invite.get_absolute_url()
+			message ='www.nir.audio%s' % invite.get_absolute_url()
 			send_custom_email(recipient=user.email, custom_message=message)
 			return redirect(reverse('home_page'))
 		else:
@@ -40,7 +42,7 @@ def confirm_invite(req, token):
 	user = invite.user
 	if user.is_active == True:
 		return redirect(reverse('home_page'))
-	user.is_actiave == True
+	user.is_active == True
 	user.save()
 	auth_user = authenticate(username=user.username, password='**')
 	if auth_user is None:
