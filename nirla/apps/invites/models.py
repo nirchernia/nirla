@@ -12,4 +12,16 @@ class Invite(models.Model):
 		
 	def get_absolute_url(self):
 		return reverse('confirm_invite_page', args=[self.token])
+
+class Request_Invite(models.Model):
+	user = models.OneToOneField(User)
+	acceptance = models.BooleanField(default=False)
 	
+	def __unicode__(self):
+		return u"%s's request" % (self.user)
+		
+	def accept_request(self):
+		pass
+		#need to change boolean to True
+		#need to change User to active
+		

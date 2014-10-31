@@ -5,9 +5,10 @@ from nirla.apps.blog.views import home, about
 from nirla.apps.suggest.views import suggest, thankyou
 from django.core.urlresolvers import reverse
 from nirla.userprofile.views import Login, Logout, Signup
-from nirla.apps.invites.views import invite_user, confirm_invite
+from nirla.apps.invites.views import invite_user, confirm_invite, request_invite, thank_you
 #used for serving static locally
 from django.conf import settings
+from django.contrib.auth.decorators import login_required #decorator wanabe for CBVs
 
 
 
@@ -28,9 +29,10 @@ urlpatterns = patterns('',
 	url(r'^signup/$', Signup.as_view(), name='signup_page'),
 	
 	#invite app
-	url(r'^request-invite/$', invite_user.as_view(), name="invite_user_page"),
-	url(r'^confirm-invite/$', confirm_invite, name="confirm_invite_page"), #not sure if correct/needed
-	url(r'^confirm-invite/(?P<token>[\w-]+)/$', confirm_invite, name="confirm_invite_page"), #need the correct regex
+	url(r'^invite-member/$', login_required(invite_user.as_view()), name="invite_user_page"),
+	url(r'^confirm-invite/(?P<token>[\w-]+)/$', confirm_invite, name="confirm_invite_page"),
+	url(r'^request-invite/$', request_invite.as_view(), name="request_invite_page"), #for non-registered members to use
+	url(r'^thank-you$', thank_you.as_view(), name='request_thank_you_page'), #after request invite
 	
 	
 	

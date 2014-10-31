@@ -1,12 +1,15 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic.base import View
-from nirla.apps.invites.forms import InviteForm
+from django.views.generic.base import View, TemplateView
+from nirla.apps.invites.forms import InviteForm, RequestForm
 from nirla.apps.invites.models import Invite
 from django.contrib.auth.models import User
 #from django.core.mail import send_mail
 from nirla.apps.invites.utils import send_custom_email
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login
+
+
+
 
 class invite_user(View):
 	
@@ -67,3 +70,35 @@ def login_user(req):
       return redirect(reverse('home_page'))
     login(req, user)
   return redirect(reverse('home_page'))		
+  
+  
+
+class request_invite(View):
+	
+	template_name = "invites/request_invite.html"
+	
+	
+	def get(self, request, *args, **kwargs):
+		form = RequestForm()
+		return render(request, self.template_name, {'form': form})
+		
+	
+	def post(self, request, *args, **kwargs):
+		form = RequestForm(request.POST)
+		if form.is_valid():
+			user = User.objects.create_user(form.cleaned_data['first_name'], form.cleaned_data['email'], '**')
+			user.first_name=form.cleaned_data['first_name']
+			user.last_name = form.cleaned_data['last_name']
+			user.is_active = False
+			user.save()
+			return redirect(reverse('request_thank_you_page'))
+		else:
+			form = RequestForm()
+			return render(request, self.template_name, {'form': form})
+
+
+class thank_you(TemplateView):
+	
+	template_name = "invites/thank_you.html"
+	
+		

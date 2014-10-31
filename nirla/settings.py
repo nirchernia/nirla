@@ -149,3 +149,6 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
+#this path tells @login_required decorator where to redirect if condition isn't met
+#it accepts reverse URLS
+LOGIN_URL = 'login_page'
