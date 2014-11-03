@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.base import View, TemplateView
 from nirla.apps.invites.forms import InviteForm, RequestForm
-from nirla.apps.invites.models import Invite
+from nirla.apps.invites.models import Invite, Request_Invite
 from django.contrib.auth.models import User
 #from django.core.mail import send_mail
 from nirla.apps.invites.utils import send_custom_email
@@ -24,7 +24,7 @@ class invite_user(View):
 	def post(self, request, *args, **kwargs):
 		form = InviteForm(request.POST)
 		if form.is_valid():
-			user = User.objects.create_user(form.cleaned_data['first_name'], form.cleaned_data['email'], '**')
+			user = User.objects.create_user(form.cleaned_data['username'], form.cleaned_data['email'], '**')
 			user.first_name=form.cleaned_data['first_name']
 			user.last_name = form.cleaned_data['last_name']
 			user.is_active = False
@@ -85,12 +85,14 @@ class request_invite(View):
 	def post(self, request, *args, **kwargs):
 		form = RequestForm(request.POST)
 		if form.is_valid():
-			user = User.objects.create_user(form.cleaned_data['first_name'], form.cleaned_data['email'], '**')
+			user = User.objects.create_user(form.cleaned_data['username'], form.cleaned_data['email'], '**')
 			user.first_name=form.cleaned_data['first_name']
 			user.last_name = form.cleaned_data['last_name']
 			user.is_active = False
 			user.save()
 			#need to make instance of request-invite
+			req_invite = Request_Invite.objects.create(user=user, accepted=False)
+			
 			
 			return redirect(reverse('request_thank_you_page'))
 		else:
