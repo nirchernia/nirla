@@ -29,7 +29,7 @@ urlpatterns = patterns('',
 	url(r'^signup/$', Signup.as_view(), name='signup_page'),
 	
 	#invite app
-	url(r'^invite-member/$', login_required(invite_user.as_view()), name="invite_user_page"),
+	url(r'^invite-member/$', login_required(invite_user.as_view()), name="invite_user_page"), #for memebers to invite new members
 	url(r'^confirm-invite/(?P<token>[\w-]+)/$', confirm_invite, name="confirm_invite_page"),
 	url(r'^request-invite/$', request_invite.as_view(), name="request_invite_page"), #for non-registered members to use
 	url(r'^thank-you$', thank_you.as_view(), name='request_thank_you_page'), #after request invite

@@ -77,7 +77,6 @@ class request_invite(View):
 	
 	template_name = "invites/request_invite.html"
 	
-	
 	def get(self, request, *args, **kwargs):
 		form = RequestForm()
 		return render(request, self.template_name, {'form': form})
@@ -91,6 +90,8 @@ class request_invite(View):
 			user.last_name = form.cleaned_data['last_name']
 			user.is_active = False
 			user.save()
+			#need to make instance of request-invite
+			
 			return redirect(reverse('request_thank_you_page'))
 		else:
 			form = RequestForm()

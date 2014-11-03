@@ -21,7 +21,7 @@
 							
 							
 							
-							<form action="{% url 'invite_user_page' %}" method="post">{% csrf_token %}
+							<form action="{% url 'request_invite_page' %}" method="post">{% csrf_token %}
 								{{ form.as_p }}
 								<input type="submit" value="Submit Request">
 							</form>

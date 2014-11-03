@@ -1,5 +1,5 @@
 from django import forms
-from nirla.apps.invites.models import Invite
+#from nirla.apps.invites.models import Invite
 
 class InviteForm(forms.Form):
   username = forms.CharField(max_length=20)

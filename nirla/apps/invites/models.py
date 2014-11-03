@@ -15,13 +15,8 @@ class Invite(models.Model):
 
 class Request_Invite(models.Model):
 	user = models.OneToOneField(User)
-	acceptance = models.BooleanField(default=False)
+	accepted = models.BooleanField(default=False)
 	
 	def __unicode__(self):
 		return u"%s's request" % (self.user)
-		
-	def accept_request(self):
-		pass
-		#need to change boolean to True
-		#need to change User to active
 		
