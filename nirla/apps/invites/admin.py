@@ -15,7 +15,9 @@ admin.site.register(Invite, InviteAdmin)
 #this is a request for an invite from a non-existing user
 
 def activate_user(modeladmin, reqeust, queryset):
-	queryset.user.update(active=True)
+	for q in queryset:
+		q.user.active = True
+		q.user.save()
 	queryset.update(accepted=True)
 activate_user.short_description = "Mark User as Active"
 

@@ -11,7 +11,7 @@ def send_custom_email(recipient, custom_message):
 	smtpserver.starttls()
 	smtpserver.ehlo
 	smtpserver.login(gmail_user, gmail_pwd)
-	header = 'To:' + to + '\n' + 'From: ' + gmail_user + '\n' + 'Subject:Invite Link \n'
+	header = 'To:' + to + '\n' + 'From: ' + gmail_user + '\n' + 'Subject:Invite Link \n\n'
 	print header
 	
 	unicoded_custom_message = unicode(custom_message)
