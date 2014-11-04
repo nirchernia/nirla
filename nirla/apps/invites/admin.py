@@ -16,7 +16,7 @@ admin.site.register(Invite, InviteAdmin)
 
 def activate_user(modeladmin, reqeust, queryset):
 	for q in queryset:
-		q.user.active = True
+		q.user.is_active = True
 		q.user.save()
 	queryset.update(accepted=True)
 activate_user.short_description = "Mark User as Active"

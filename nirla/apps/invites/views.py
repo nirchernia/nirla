@@ -7,9 +7,7 @@ from django.contrib.auth.models import User
 from nirla.apps.invites.utils import send_custom_email
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login
-
-from django.http import HttpResponse
-
+from nirla.userprofile.models import UserProfile
 
 
 class invite_user(View):
@@ -30,6 +28,9 @@ class invite_user(View):
 			user.last_name = form.cleaned_data['last_name']
 			user.is_active = False
 			user.save()
+			#now create matching UserProfile instance
+			new_profile = UserProfile(user=user)
+			new_profile.save()
 			#now make Invite
 			invite = Invite.objects.create(user=user, cookie='ck-test', token='tk-test')
 			#now set up send_custom_email
@@ -92,10 +93,12 @@ class request_invite(View):
 			user.last_name = form.cleaned_data['last_name']
 			user.is_active = False
 			user.save()
+			#now create matching UserProfile instance
+			new_profile = UserProfile(user=user)
+			new_profile.save()
 			#need to make instance of request-invite
 			req_invite = Request_Invite.objects.create(user=user, accepted=False)
-			
-			
+			#send them to thank you page
 			return redirect(reverse('request_thank_you_page'))
 		else:
 			form = RequestForm()
