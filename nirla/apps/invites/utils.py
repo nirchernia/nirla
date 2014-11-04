@@ -5,6 +5,7 @@ def send_custom_email(recipient, custom_message):
  	
  	unicoded_custom_message = unicode(custom_message)
  	
+ 	
 	TO = recipient
 	SUBJECT = 'Invite Link'
 	TEXT = unicoded_custom_message
@@ -16,7 +17,7 @@ def send_custom_email(recipient, custom_message):
 	smtpserver.starttls()
 	smtpserver.ehlo
 	smtpserver.login(gmail_user, gmail_pwd)
-	message = """\From: %s\nTo: %s\nSubject: %s\n\n%s""" % (gmail_user, ", ".join(TO), SUBJECT, TEXT)
+	message = """\From: %s\nTo: %s\nSubject: %s\n\n%s""" % (gmail_user, TO, SUBJECT, TEXT)
 	#header = 'To:' + TO + '\n' + 'From: ' + gmail_user + '\n' + 'Subject:Invite Link \n\n'
 	#print header
 	print message
@@ -33,3 +34,7 @@ def send_custom_email(recipient, custom_message):
 	
 	
 	
+	
+	#notes:
+	# previously the message was being constructed using a join on the TO and it still managed to work with some mail clients
+	#", ".join(TO)
