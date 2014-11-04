@@ -1,5 +1,6 @@
 from django.contrib import admin
 from nirla.apps.invites.models import Invite, Request_Invite
+from nirla.apps.invites.utils import send_custom_email
 
 #This is an invite from an existing user to another non-existing user
 class InviteAdmin(admin.ModelAdmin):
@@ -18,7 +19,17 @@ def activate_user(modeladmin, reqeust, queryset):
 	for q in queryset:
 		q.user.is_active = True
 		q.user.save()
+		#send mail telling them that they have been accepted
+		user_email = q.user.email
+		subject = "Your request has been accepted!"
+		message = "The account for %s has been accepted." % q.user.username 
+		send_custom_email(recipient=user_email, subject=subject, custom_message=message)
+		
+	#update every model in the queryset to have accept=True	
 	queryset.update(accepted=True)
+	
+	
+	
 activate_user.short_description = "Mark User as Active"
 
 class Request_InviteAdmin(admin.ModelAdmin):

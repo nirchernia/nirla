@@ -35,8 +35,9 @@ class invite_user(View):
 			#now make Invite
 			invite = Invite.objects.create(user=user, cookie=uuid.uuid4().hex, token=uuid.uuid4().hex)
 			#now set up send_custom_email
+			subject = 'Invite Link'
 			message ='http://www.nir.audio%s' % invite.get_absolute_url()
-			send_custom_email(recipient=user.email, custom_message=message)
+			send_custom_email(recipient=user.email, subject=subject, custom_message=message)
 			
 			return redirect(reverse('home_page'))
 		else:
@@ -99,6 +100,10 @@ class request_invite(View):
 			new_profile.save()
 			#need to make instance of request-invite
 			req_invite = Request_Invite.objects.create(user=user, accepted=False)
+			#send them an email
+			subject= "We have received your request"
+			message= "Thank you for your interest in www.nir.audio, we will notify you when we have room for additional users."
+			send_custom_email(recipient=user.email, subject=subject, custom_message=message)
 			#send them to thank you page
 			return redirect(reverse('request_thank_you_page'))
 		else:
