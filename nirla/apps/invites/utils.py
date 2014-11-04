@@ -2,31 +2,34 @@ import smtplib
 
 
 def send_custom_email(recipient, custom_message):
- 
-	to = recipient
+ 	
+ 	unicoded_custom_message = unicode(custom_message)
+ 	
+	TO = recipient
+	SUBJECT = 'Invite Link'
+	TEXT = unicoded_custom_message
+	
 	gmail_user = 'nirchernia@gmail.com'
-	gmail_pwd = GMAIL_PWD
+	gmail_pwd = 'floratash'
 	smtpserver = smtplib.SMTP("smtp.gmail.com",587)
 	smtpserver.ehlo()
 	smtpserver.starttls()
 	smtpserver.ehlo
 	smtpserver.login(gmail_user, gmail_pwd)
-	header = 'To:' + to + '\n' + 'From: ' + gmail_user + '\n' + 'Subject:Invite Link \n\n'
-	print header
-	
-	unicoded_custom_message = unicode(custom_message)
-	
-	
-	msg = header + unicoded_custom_message
+	message = """\From: %s\nTo: %s\nSubject: %s\n\n%s""" % (gmail_user, ", ".join(TO), SUBJECT, TEXT)
+	#header = 'To:' + TO + '\n' + 'From: ' + gmail_user + '\n' + 'Subject:Invite Link \n\n'
+	#print header
+	print message
 	
 	
-	smtpserver.sendmail(gmail_user, to, msg)
+	
+	#msg = header + unicoded_custom_message
+	
+	
+	
+	smtpserver.sendmail(gmail_user, TO, message)
 	print 'done!'
 	smtpserver.close()
-	
-	
-	
-	
 	
 	
 	
