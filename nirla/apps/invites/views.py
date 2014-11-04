@@ -8,6 +8,7 @@ from nirla.apps.invites.utils import send_custom_email
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login
 from nirla.userprofile.models import UserProfile
+import uuid
 
 
 class invite_user(View):
@@ -32,7 +33,7 @@ class invite_user(View):
 			new_profile = UserProfile(user=user)
 			new_profile.save()
 			#now make Invite
-			invite = Invite.objects.create(user=user, cookie='ck-test', token='tk-test')
+			invite = Invite.objects.create(user=user, cookie=uuid.uuid4().hex, token=uuid.uuid4().hex)
 			#now set up send_custom_email
 			message ='http://www.nir.audio%s' % invite.get_absolute_url()
 			send_custom_email(recipient=user.email, custom_message=message)
