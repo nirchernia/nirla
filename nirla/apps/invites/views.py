@@ -76,6 +76,7 @@ def confirm_invite(req, token):
 		if user.is_active == True:
 			return HttpResponse('user is already active')
 		else:
+			user.is_active == True
 			form = ActivationForm()
 			return render(req, template_name, {'form': form, 'token': token})
 
