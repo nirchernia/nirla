@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.base import View, TemplateView
-from nirla.apps.invites.forms import InviteForm, RequestForm
+from nirla.apps.invites.forms import InviteForm, RequestForm, ActivationForm
 from nirla.apps.invites.models import Invite, Request_Invite
 from django.contrib.auth.models import User
 #from django.core.mail import send_mail
@@ -9,6 +9,8 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login
 from nirla.userprofile.models import UserProfile
 import uuid
+from django.http import HttpResponse
+
 
 
 class invite_user(View):
@@ -24,7 +26,10 @@ class invite_user(View):
 	def post(self, request, *args, **kwargs):
 		form = InviteForm(request.POST)
 		if form.is_valid():
-			user = User.objects.create_user(form.cleaned_data['username'], form.cleaned_data['email'], '**')
+			#create a random password
+			activation = str(uuid.uuid4().hex)
+			
+			user = User.objects.create_user(form.cleaned_data['username'], form.cleaned_data['email'], activation) #randomly gen password
 			user.first_name=form.cleaned_data['first_name']
 			user.last_name = form.cleaned_data['last_name']
 			user.is_active = False
@@ -36,7 +41,8 @@ class invite_user(View):
 			invite = Invite.objects.create(user=user, cookie=uuid.uuid4().hex, token=uuid.uuid4().hex)
 			#now set up send_custom_email
 			subject = 'Invite Link'
-			message ='http://www.nir.audio%s' % invite.get_absolute_url()
+			message = 'Your friend has invited you. \n click on the link: http://www.nir.audio%s \n Your activation code is: %s' % (invite.get_absolute_url(), activation)
+			#message ='http://www.nir.audio%s' % invite.get_absolute_url()
 			send_custom_email(recipient=user.email, subject=subject, custom_message=message)
 			
 			return redirect(reverse('home_page'))
@@ -46,17 +52,80 @@ class invite_user(View):
 			
 
 def confirm_invite(req, token):
-	invite = get_object_or_404(Invite, token=token)
-	user = invite.user
-	if user.is_active == True:
-		return redirect(reverse('home_page'))
-	user.is_active == True
-	user.save()
-	auth_user = authenticate(username=user.username, password='**')
-	if auth_user is None:
-		return redirect(reverse('home_page'))
-	login(req, auth_user)
-	return redirect(reverse('home_page'))
+	template_name = 'invites/confirm_invite.html'
+	
+	if req.method == 'POST':
+		form = ActivationForm(req.POST)
+		
+		if form.is_valid():
+			invite = get_object_or_404(Invite, token=token)
+			user = invite.user
+			try:
+				auth_user = authenticate(username=user.username, password=form.cleaned_data['activation_code'])
+			except:
+				return HttpResponse('didnt authenticate')
+			if auth_user is None:
+				return HttpResponse('auth_user is none')
+			login(req, auth_user)
+			return HttpResponse('you activated your account')
+		else:
+			return HttpResponse('form error foo')
+	else:
+		invite = get_object_or_404(Invite, token=token)
+		user = invite.user
+		if user.is_active == True:
+			return HttpResponse('user is already active')
+		else:
+			form = ActivationForm()
+			return render(req, template_name, {'form': form, 'token': token})
+
+
+# def confirm_invite_done(req, activation):
+# 	template_name = 'invites/confirm_invite.html'
+# 	
+# 	if req.method == 'POST':
+# 		form = ActivationForm(req.POST)
+# 		if form.is_valid():
+# 			invite = get_object_or_404(Invite, token=token)
+# 			user = invite.user
+# 			if user.is_active == True:
+# 				return HttpResponse('user is already active')
+# 				#return redirect(reverse('home_page'))
+# 			user.is_active == True
+# 			user.save()
+# 			try:
+# 				auth_user = authenticate(username=user.username, password=form[activation_code])
+# 			except:
+# 				return HttpResponse('didnt authenticate')
+# 			if auth_user is None:
+# 				return HttpResponse('auth_user is none')
+# 				#return redirect(reverse('home_page'))
+# 			login(req, auth_user)
+# 			return HttpResponse('you activated your account')
+# 		else:
+# 			return HttpResponse('form error foo')
+# 	else:
+# 		form = ActivationForm()
+# 		return render(req, template_name, {'form': form})
+
+	
+	
+# 	invite = get_object_or_404(Invite, token=token)
+# 	user = invite.user
+# 	if user.is_active == True:
+# 		return HttpResponse('user is already active')
+# 		#return redirect(reverse('home_page'))
+# 	user.is_active == True
+# 	user.save()
+# 	try:
+# 		auth_user = authenticate(username=user.username, password=activation)
+# 	except:
+# 		return HttpResponse('didnt authenticate')
+# 	if auth_user is None:
+# 		return HttpResponse('auth_user is none')
+# 		#return redirect(reverse('home_page'))
+# 	login(req, auth_user)
+# 	return redirect(reverse('password_change_done'))
 
 	
 
@@ -90,7 +159,7 @@ class request_invite(View):
 	def post(self, request, *args, **kwargs):
 		form = RequestForm(request.POST)
 		if form.is_valid():
-			user = User.objects.create_user(form.cleaned_data['username'], form.cleaned_data['email'], '**')
+			user = User.objects.create_user(form.cleaned_data['username'], form.cleaned_data['email'], uuid.uuid4().hex) #randomly gen password
 			user.first_name=form.cleaned_data['first_name']
 			user.last_name = form.cleaned_data['last_name']
 			user.is_active = False
@@ -109,6 +178,7 @@ class request_invite(View):
 		else:
 			form = RequestForm()
 			return render(request, self.template_name, {'form': form})
+
 
 
 class thank_you(TemplateView):

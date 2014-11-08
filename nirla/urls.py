@@ -9,6 +9,7 @@ from nirla.apps.invites.views import invite_user, confirm_invite, request_invite
 #used for serving static locally
 from django.conf import settings
 from django.contrib.auth.decorators import login_required #decorator wanabe for CBVs
+from django.contrib.auth.views import password_change
 
 
 
@@ -30,9 +31,13 @@ urlpatterns = patterns('',
 	
 	#invite app
 	url(r'^invite-member/$', login_required(invite_user.as_view()), name="invite_user_page"), #for memebers to invite new members
+	
 	url(r'^confirm-invite/(?P<token>[\w-]+)/$', confirm_invite, name="confirm_invite_page"),
+	
+	
 	url(r'^request-invite/$', request_invite.as_view(), name="request_invite_page"), #for non-registered members to use
-	url(r'^thank-you$', thank_you.as_view(), name='request_thank_you_page'), #after request invite
+	url(r'^thank-you/$', thank_you.as_view(), name='request_thank_you_page'), #after request invite
+	url(r'^set-password/$', password_change, name='password_change_done'),
 	
 	
 	

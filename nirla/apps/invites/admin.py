@@ -19,7 +19,7 @@ def activate_user(modeladmin, reqeust, queryset):
 	for q in queryset:
 		q.user.is_active = True
 		q.user.save()
-		#send mail telling them that they have been accepted
+		#send mail telling them that they have been accepted + link to reset their password
 		user_email = q.user.email
 		subject = "Your request has been accepted!"
 		message = "The account for %s has been accepted." % q.user.username 
