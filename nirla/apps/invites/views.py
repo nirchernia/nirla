@@ -67,7 +67,9 @@ def confirm_invite(req, token):
 			if auth_user is None:
 				return HttpResponse('auth_user is none')
 			login(req, auth_user)
-			return HttpResponse('you activated your account')
+			user.set_password(form.cleaned_data['set_password_again'])
+			user.save()
+			return HttpResponse('activated!')
 		else:
 			return HttpResponse('form error foo')
 	else:
