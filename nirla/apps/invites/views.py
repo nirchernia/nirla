@@ -163,7 +163,7 @@ class request_invite(View):
 	def post(self, request, *args, **kwargs):
 		form = RequestForm(request.POST)
 		if form.is_valid():
-			user = User.objects.create_user(form.cleaned_data['username'], form.cleaned_data['email'], uuid.uuid4().hex) #randomly gen password
+			user = User.objects.create_user(form.cleaned_data['username'], form.cleaned_data['email'], form.cleaned_data['create_password_again'])
 			user.first_name=form.cleaned_data['first_name']
 			user.last_name = form.cleaned_data['last_name']
 			user.is_active = False

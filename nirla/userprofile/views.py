@@ -21,7 +21,7 @@ class Login(View):
 		username = request.POST.get('username', '') # the '' is the default value
 		password = request.POST.get('password', '')
 		user = authenticate(username=username, password=password)
-		if user is not None:
+		if user is not None and user.is_active == True: #user needs to exist and be marked active
 			login(request, user)
 			#now redirect to success page
 			return redirect(reverse('home_page'))

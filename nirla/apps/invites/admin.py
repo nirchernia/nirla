@@ -22,7 +22,7 @@ def activate_user(modeladmin, reqeust, queryset):
 		#send mail telling them that they have been accepted + link to reset their password
 		user_email = q.user.email
 		subject = "Your request has been accepted!"
-		message = "The account for %s has been accepted." % q.user.username 
+		message = "The account for %s has been accepted. You may now log in here: http://www.nir.audio/login/" % q.user.username 
 		send_custom_email(recipient=user_email, subject=subject, custom_message=message)
 		
 	#update every model in the queryset to have accept=True	

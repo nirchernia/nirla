@@ -10,6 +10,8 @@ class InviteForm(forms.Form):
 
 class RequestForm(forms.Form):
 	username = forms.CharField(max_length=20)
+	create_password = forms.CharField(widget=forms.PasswordInput(render_value = True))
+	create_password_again = forms.CharField(widget=forms.PasswordInput(render_value = True))
 	first_name = forms.CharField(max_length=40)
 	last_name = forms.CharField(max_length=40)
 	email = forms.EmailField()
