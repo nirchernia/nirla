@@ -26,12 +26,11 @@ class invite_user(View):
 	def post(self, request, *args, **kwargs):
 		form = InviteForm(request.POST)
 		if form.is_valid():
-			#create a random password
+			#create a random name & password
+			random_username = str(uuid.uuid4().hex[:8])
 			activation = str(uuid.uuid4().hex)
 			
-			user = User.objects.create_user(form.cleaned_data['username'], form.cleaned_data['email'], activation) #randomly gen password
-			user.first_name=form.cleaned_data['first_name']
-			user.last_name = form.cleaned_data['last_name']
+			user = User.objects.create_user(random_username, form.cleaned_data['email'], activation)
 			user.is_active = False
 			user.save()
 			#now create matching UserProfile instance
