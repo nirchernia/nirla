@@ -20,8 +20,11 @@
 							</p> 
 							
 							
-							
+						
 							<form action="{% url 'request_invite_page' %}" method="post">{% csrf_token %}
+								{{forms.errors}}
+					
+							
 								{{ form.as_p }}
 								<input type="submit" value="Submit Request">
 							</form>

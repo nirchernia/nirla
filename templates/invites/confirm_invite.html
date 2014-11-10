@@ -16,6 +16,7 @@
                     
                     	<div style="width:700px;margin: 0 auto;">
 							<form action="{% url 'confirm_invite_page' token %}" method="post">{% csrf_token %}
+							{{forms.errors}}
 							{{form.as_p}}
 							<input type="submit" value="Activate">
 							</form>
