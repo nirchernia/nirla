@@ -11,7 +11,7 @@ def send_custom_email(recipient, subject, custom_message):
 	TEXT = unicoded_custom_message
 	
 	gmail_user = 'nirchernia@gmail.com'
-	gmail_pwd = 'floratash'
+	gmail_pwd = GMAIL_PWD
 	smtpserver = smtplib.SMTP("smtp.gmail.com",587)
 	smtpserver.ehlo()
 	smtpserver.starttls()

@@ -26,6 +26,7 @@ class RequestForm(forms.Form):
 	
 class ActivationForm(forms.Form):
 	activation_code = forms.CharField(max_length=33)
+	desired_username = forms.CharField(max_length=20)
 	set_password = forms.CharField(widget=forms.PasswordInput(render_value = True))
 	set_password_again = forms.CharField(widget=forms.PasswordInput(render_value = True))
 	
@@ -34,7 +35,7 @@ class ActivationForm(forms.Form):
 		set_password = self.cleaned_data.get('set_password')
 		set_password_again = self.cleaned_data.get('set_password_again')
 		
-		if set_password and create_password != set_password_again:
+		if set_password and set_password != set_password_again:
 			raise forms.ValidationError("Passwords don't match")
 		return self.cleaned_data
 	

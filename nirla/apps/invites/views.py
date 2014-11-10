@@ -60,13 +60,22 @@ def confirm_invite(req, token):
 		if form.is_valid():
 			invite = get_object_or_404(Invite, token=token)
 			user = invite.user
+			#auth the user first
 			try:
 				auth_user = authenticate(username=user.username, password=form.cleaned_data['activation_code'])
 			except:
 				return HttpResponse('didnt authenticate')
 			if auth_user is None:
 				return HttpResponse('auth_user is none')
+			#mark the user as active
+			user.is_active = True
+			user.save()
+			#log the user in
 			login(req, auth_user)
+			#change the users name to one desired
+			user.username = form.cleaned_data['desired_username']
+			user.save()
+			#set the password to one desired
 			user.set_password(form.cleaned_data['set_password_again'])
 			user.save()
 			return HttpResponse('activated!')
@@ -78,8 +87,6 @@ def confirm_invite(req, token):
 		if user.is_active == True:
 			return HttpResponse('user is already active')
 		else:
-			user.is_active = True
-			user.save()
 			form = ActivationForm()
 			return render(req, template_name, {'form': form, 'token': token})
 
