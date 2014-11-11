@@ -79,7 +79,9 @@ def confirm_invite(req, token):
 			user.save()
 			return HttpResponse('activated!')
 		else:
-			return HttpResponse('form error foo')
+			#return form with errors
+			form = ActivationForm(req.POST)
+			return render(req, template_name, {'form': form, 'token': token})
 	else:
 		invite = get_object_or_404(Invite, token=token)
 		user = invite.user
