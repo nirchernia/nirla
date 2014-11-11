@@ -17,9 +17,11 @@
                     	
                     	<div style="width:700px;margin: 0 auto;">
 							<h1>Login</h1>
-							{% if form.errors %}
-							<p class="error">Sorry, that's not a valid username or password</p>
-							{% endif %}
+							
+							
+							<p class="error">{{show_error}}</p>
+
+						  
 
 							<form action="" method="post">{% csrf_token %}
 								<label for="username">User name:</label>

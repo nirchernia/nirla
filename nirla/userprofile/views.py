@@ -27,7 +27,9 @@ class Login(View):
 			return redirect(reverse('home_page'))
 		else:
 			#show an error page
-			return redirect(reverse('login_page'))
+			show_error = "Username or Password is incorrect"
+			return render(request, self.template_name,{'show_error': show_error})
+			
 			
 		
 class Logout(View):

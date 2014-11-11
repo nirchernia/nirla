@@ -31,9 +31,14 @@ class ActivationForm(forms.Form):
 	def clean(self): #clean is a built in method, this is overridding it.
 		set_password = self.cleaned_data.get('set_password')
 		set_password_again = self.cleaned_data.get('set_password_again')
+		username = self.cleaned_data.get('desired_username')
 		
 		if set_password and set_password != set_password_again:
 			raise forms.ValidationError("Passwords don't match")
+			
+		if User.objects.filter(username=username).exists():
+			raise ValidationError('Username already taken.')
+		
 		return self.cleaned_data
 	
 	
