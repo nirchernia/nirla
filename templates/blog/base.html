@@ -60,7 +60,7 @@
                 <ul style="list-style-type: none;">
                 	 	{% if user.is_authenticated %}
 			   		<li>
-			   			<div style="align:right;margin-left:900px;margin-top:13px;list-style-type: none;">{{ user.username }} &#149; <a href="{% url 'logout_page' %}">Logout</a></div>
+			   			<div style="align:right;margin-left:900px;margin-top:13px;list-style-type: none;">{{ user.username }} &#149; <a href="{% url 'invite_user_page' %}">Invite Member</a> &#149; <a href="{% url 'logout_page' %}">Logout</a></div>
 			   		</li>
 			   		
 			   			{% else %}

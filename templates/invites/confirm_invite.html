@@ -1,6 +1,7 @@
 {% extends "blog/base.html" %}
 {% load staticfiles %}
 
+
 {% block content %}
 
     <!-- content -->
@@ -8,36 +9,18 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    
+                    <h1 style="color: #35C0CD">Complete Profile</h1>
                     </br>
                     <h2></h2>
                     <h3></h3>
                     
-                    	
-                    	
                     	<div style="width:700px;margin: 0 auto;">
-							<h1>Login</h1>
-							
-							
-							<p class="error">{{show_error}}</p>
-
-						  
-
-							<form action="" method="post">{% csrf_token %}
-								<label for="username">User name:</label>
-								<input type="text" name="username" value="" id="username">
-								<label for="password">Password:</label>
-								<input type="password" name="password" value="" id="password">
-
-								<input type="submit" value="login" />
-								<input type="hidden" name="next" value="{{ next|escape }}" />
-								</form>
-								 
+							<form action="{% url 'confirm_invite_page' token %}" method="post">{% csrf_token %}
+							{{forms.errors}}
+							{{form.as_p}}
+							<input type="submit" value="Activate">
+							</form>
                     	</div>
-                    
-                    
-                    
-                    
                     <hr width="800" size="500" color="000">
                                       
                    <p> <a href="https://twitter.com/NirChernia"><img src="{% static "img/twitterbird.png" %}" height="42" width="42"/></a>
@@ -47,7 +30,9 @@
                    </br>
                    
                     
-                    <!-- <a class="btn btn-default page-scroll" href="#about">Click Me to Scroll Down!</a> -->
+                    <!-- <a class="btn btn-default page-scroll" href="#about">Click Me to Scroll Down!</a> 
+                    
+                    -->
                 </div>
             </div>
         </div>
