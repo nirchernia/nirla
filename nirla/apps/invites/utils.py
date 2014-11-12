@@ -11,7 +11,7 @@ def send_custom_email(recipient, subject, custom_message):
 	TEXT = unicoded_custom_message
 	
 	gmail_user = 'nirchernia@gmail.com'
-	gmail_pwd = S3Client(os.environ['GMAIL_PWD'])
+	gmail_pwd = os.environ['GMAIL_PWD']
 	smtpserver = smtplib.SMTP("smtp.gmail.com",587)
 	smtpserver.ehlo()
 	smtpserver.starttls()
