@@ -1,4 +1,5 @@
 import smtplib
+import os
 
 
 def send_custom_email(recipient, subject, custom_message):
