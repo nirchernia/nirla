@@ -37,6 +37,14 @@ class about(View):
  		
 		return render(request, self.template_name)
 
-    
+class article_view(View):
+	""" Shows a single article """
+	template_name = "blog/article_view.html"
+	
+	def get(self, request, *args, **kwargs):
+	
+		art_title = self.kwargs['title']
+		article = Article.objects.get(title=art_title)
+		return render(request, self.template_name, {'article': article})
     
    
