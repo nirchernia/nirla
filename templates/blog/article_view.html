@@ -1,0 +1,30 @@
+{% extends "blog/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<section id="intro" class="intro-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+  
+                    </br>
+                    <a href="{% url 'article_view' article.title %}"><h2>{{ article.title }}</h2></a>
+                    <h3>{{ article.created }} </h3>
+                    {{article.body|safe}}
+                    </br>
+                        <hr width="800" size="500" color="000">
+  <p> <a href="https://twitter.com/NirChernia"><img src="{% static "img/twitterbird.png" %}" height="42" width="42"/></a>
+                   <a href="https://github.com/nirchernia"><img src="{% static "img/github.png" %}" height="42" width="42"/></a>
+                   </p>
+                   </br>
+                   </br>
+                   
+                    
+                    <!-- <a class="btn btn-default page-scroll" href="#about">Click Me to Scroll Down!</a> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}

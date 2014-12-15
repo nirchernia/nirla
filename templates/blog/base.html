@@ -85,7 +85,7 @@
                 <div class="col-lg-12">
                     <h1 style="color: #35C0CD">Current Obsession</h1>
                     </br>
-                    <h2>{{ main_article.title }}</h2>
+                    <a href="{% url 'article_view' main_article.title %}"><h2>{{ main_article.title }}</h2></a>
                     <h3>{{ main_article.created }} </h3>
                     {{main_article.body|safe}}
                     
@@ -97,7 +97,7 @@
                     </br>
                     </br>
                     {% for prev_article in prev_articles %}
-                    	<h2> {{prev_article.title}} </h2>
+                    	<a href="{% url 'article_view' prev_article.title %}"><h2> {{prev_article.title}} </h2></a>
 						<h3> {{ prev_article.created }} </h3>
 						{{prev_article.body|safe}}
 					</br>

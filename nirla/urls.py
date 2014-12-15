@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
-from nirla.apps.blog.views import home, about
+from nirla.apps.blog.views import home, about, article_view
 from nirla.apps.suggest.views import suggest, thankyou
 from django.core.urlresolvers import reverse
 from nirla.userprofile.views import Login, Logout, Signup
@@ -19,6 +19,7 @@ urlpatterns = patterns('',
 	#blog app
 	url(r'^$', home.as_view(), name="home_page"),
 	url(r'^about/$', about.as_view(), name='about_page'),
+	url(r'^(?P<title>(.*))$', article_view.as_view(), name="article_view"),
 	
 	#suggest app
 	url(r'^suggest/$', suggest.as_view(), name='suggest_page'),
