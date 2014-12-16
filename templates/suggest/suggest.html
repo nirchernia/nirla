@@ -17,26 +17,31 @@
                   <form action="." method="post">{% csrf_token %}
                     <ol style="list-style: none;">
 	                    <li>
-		                    <label for="name" style="margin-top: 0px;">name <span class="required">*</span></label>
+		                    <label for="name" style="margin-top: 0px;">Name <span class="required" style="color:red;">*</span></label></br>
 							{{ form.name }}
 							{{ form.name.errors }}
 	                    </li>
 	                    <li>
-	                    	<label for="link" style="margin-top: 0px;">link  </label>
+	                    	<label for="link" style="margin-top: 0px;">Link  </label></br>
 							{{ form.link }}
 							{{ form.link.errors }}
 	                    </li>
 	                    <li>
-		                    <label for="email" style="margin-top: 0px;">email  </label>
+		                    <label for="email" style="margin-top: 0px;">Your Email  </label> </br>
 		                     
 		                     {{ form.email }}
 		                     {{ form.email.errors }}
 	                    </li>
 	                    <li>
-		                     <label for="link" style="margin-top: 0px;">message </label>
-		                     <br/>
+		                     <label for="link" style="margin-top: 0px;">Message </label><br/>
 		                     {{ form.message }}
 		                     {{ form.message.errors }}
+		                     
+		                    
+		                    
+		                     
+		                     
+		                     
 	                    </li> 
                     </ol>
                     <input type="submit" value="Submit">
