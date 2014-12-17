@@ -12,40 +12,76 @@
                     <h2></h2>
                     <h3></h3>
                     
-                    <p> If you think I would like a song, feel free to suggest it. I will give you full credit in the post as well as link to your personal page. I read every submission. </p>
-                    
+                    <p> If you think I would like a song, album, or mix, feel free to suggest it. I will give you full credit in the post as well as link to your personal page. I read every submission. </p>
+                    </br>
                   <form action="." method="post">{% csrf_token %}
                     <ol style="list-style: none;">
 	                    <li>
-		                    <label for="name" style="margin-top: 0px;">Name <span class="required" style="color:red;">*</span></label></br>
+		                    <label for="name" style="margin-top: 0px;">Name<span class="required" style="color:red;">*</span></label></br>
 							{{ form.name }}
 							{{ form.name.errors }}
 	                    </li>
+	                    </br>
 	                    <li>
-	                    	<label for="link" style="margin-top: 0px;">Link  </label></br>
+	                    	<label for="link" style="margin-top: 0px;">Link</label></br>
 							{{ form.link }}
 							{{ form.link.errors }}
 	                    </li>
+	                    </br>
 	                    <li>
-		                    <label for="email" style="margin-top: 0px;">Your Email  </label> </br>
+		                    <label for="email" style="margin-top: 0px;">Your Email</label> </br>
 		                     
 		                     {{ form.email }}
 		                     {{ form.email.errors }}
 	                    </li>
+	                    </br>
 	                    <li>
-		                     <label for="link" style="margin-top: 0px;">Message </label><br/>
+		                     <label for="link" style="margin-top: 0px;">Message<span class="required" style="color:red;">*</span></label><br/>
 		                     {{ form.message }}
 		                     {{ form.message.errors }}
-		                     
-		                    
-		                    
-		                     
-		                     
-		                     
-	                    </li> 
+						</li> 
+						</br>
                     </ol>
-                    <input type="submit" value="Submit">
+                    
+                    <input id="suggest-button" type="submit" value="Suggest!">
+                    <button type="reset" value="Reset">Reset</button>
 				  </form>  
+				  
+<style> 
+  input { 
+    background: white; 
+    border: 1px double #DDD; 
+    border-radius: 5px; 
+    box-shadow: 0 0 2px #333; 
+    color: #666; 
+    outline: none; 
+    height:25px; 
+    width: 175px; }
+  
+  textarea {
+	  background: white; 
+    border: 1px double #DDD; 
+    border-radius: 5px; 
+    box-shadow: 0 0 2px #333; 
+    color: #666; 
+    outline: none; 
+    height:300px; 
+    width: 400px; 
+	  }
+  #suggest-button, button {
+	  background: white; 
+    border: 1px double #DDD; 
+    border-radius: 2px; 
+    box-shadow: 0 0 2px #333; 
+    color: #666; 
+    outline: none; 
+    height:26px; 
+    width: 100px; 
+	  
+  }  
+	 
+ </style> 
+
 				  
 				  
                     
